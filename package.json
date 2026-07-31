@@ -1,0 +1,25 @@
+{
+  "name": "atlas",
+  "private": true,
+  "version": "1.0.0",
+  "description": "ATLAS Personal Finance Platform",
+  "type": "module",
+  "packageManager": "pnpm@11.17.0",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "turbo": "^2.10.7"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.27.0",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.4.3"
+  }
+}

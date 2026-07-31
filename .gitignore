@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build outputs
+dist/
+.next/
+out/
+coverage/
+generated/
+
+# Tool caches
+.turbo/
+.cache/
+
+# Local editor and AI settings
+.vscode/
+.continue/
+
+# Logs
+*.log
+pnpm-debug.log*
+
+# Operating system
+.DS_Store
+Thumbs.db
