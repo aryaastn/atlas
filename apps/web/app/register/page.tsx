@@ -4,14 +4,14 @@ import Link from "next/link";
 import { Logo } from "@/components/shared/Logo";
 import { GlassCard } from "@/components/ui/GlassCard";
 
-import { LoginForm } from "./LoginForm";
+import { RegisterForm } from "./RegisterForm";
 
 export const metadata: Metadata = {
-  title: "Login",
-  description: "Sign in to your ATLAS account.",
+  title: "Register",
+  description: "Create your ATLAS account.",
 };
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-12">
       <div
@@ -36,28 +36,28 @@ export default function LoginPage() {
         <GlassCard className="p-8 sm:p-10">
           <div className="mb-8">
             <p className="text-sm font-medium text-indigo-300">
-              Welcome back
+              Get started
             </p>
 
             <h1 className="mt-3 text-3xl font-semibold tracking-tight text-white">
-              Sign in to ATLAS
+              Create your ATLAS account
             </h1>
 
             <p className="mt-3 text-sm leading-6 text-white/55">
-              Access your financial operating system and continue managing your
-              financial life.
+              Build your financial operating system and start managing your
+              financial life in one place.
             </p>
           </div>
 
-          <LoginForm />
+          <RegisterForm />
 
           <p className="mt-8 text-center text-sm text-white/45">
-            Don&apos;t have an account?{" "}
+            Already have an account?{" "}
             <Link
-              href="/register"
+              href="/login"
               className="font-medium text-indigo-300 transition hover:text-indigo-200"
             >
-              Create account
+              Sign in
             </Link>
           </p>
         </GlassCard>
