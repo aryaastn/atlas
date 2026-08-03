@@ -16,13 +16,11 @@ const sizeClasses = {
     text: "text-lg",
     subtitle: "text-[11px]",
   },
-
   md: {
     icon: "h-10 w-10",
     text: "text-xl",
     subtitle: "text-xs",
   },
-
   lg: {
     icon: "h-14 w-14",
     text: "text-[34px]",
@@ -39,17 +37,11 @@ export function Logo({
   const styles = sizeClasses[size];
 
   return (
-    <div
-      className={cn(
-        "flex items-start gap-4",
-        className
-      )}
-    >
-      {/* Logo */}
+    <div className={cn("flex items-start gap-4", className)}>
       <div
         className={cn(
           "relative shrink-0 overflow-hidden",
-          styles.icon
+          styles.icon,
         )}
       >
         <Image
@@ -61,18 +53,12 @@ export function Logo({
         />
       </div>
 
-      {/* Text */}
       {!compact && showText && (
-        <div
-          className={cn(
-            "flex flex-col",
-            className
-          )}
-        >
+        <div className="flex flex-col">
           <span
             className={cn(
-              "leading-none font-bold tracking-[-0.06em] text-white",
-              styles.text
+              "font-bold leading-none tracking-[-0.06em] text-white",
+              styles.text,
             )}
           >
             {siteConfig.name}
@@ -80,8 +66,8 @@ export function Logo({
 
           <span
             className={cn(
-              "mt-1 text-white/55 leading-non",
-              styles.subtitle
+              "mt-1 leading-none text-white/55",
+              styles.subtitle,
             )}
           >
             {siteConfig.description}
