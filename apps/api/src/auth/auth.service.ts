@@ -20,6 +20,7 @@ export class AuthService {
   async register(dto: RegisterDto) {
     const email = dto.email.trim().toLowerCase();
     const username = dto.username.trim().toLowerCase();
+    const fullName = dto.fullName.trim();
 
     const existingUser = await this.prisma.user.findFirst({
       where: {
@@ -45,8 +46,14 @@ export class AuthService {
       data: {
         email,
         username,
-        fullName: dto.fullName.trim(),
+        fullName,
         passwordHash,
+        workspaces: {
+          create: {
+            name: 'Personal',
+            type: 'PERSONAL',
+          },
+        },
       },
       select: {
         id: true,
