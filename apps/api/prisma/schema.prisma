@@ -22,6 +22,11 @@ enum AccountType {
   INVESTMENT
 }
 
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
 model User {
   id           String  @id @default(uuid(7))
   email        String  @unique
@@ -43,12 +48,12 @@ model Workspace {
 
   owner User @relation(fields: [ownerId], references: [id], onDelete: Restrict)
 
-  name     String
-  type     WorkspaceType
-  currency String        @default("IDR")
-  timezone String        @default("Asia/Jakarta")
-
-  accounts Account[]
+  name       String
+  type       WorkspaceType
+  currency   String        @default("IDR")
+  timezone   String        @default("Asia/Jakarta")
+  accounts   Account[]
+  categories Category[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -62,16 +67,57 @@ model Account {
 
   workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Restrict)
 
-  name       String
-  type       AccountType
-  balance    Decimal     @default(0)
-  currency   String      @default("IDR")
-  color      String?
-  icon       String?
-  isArchived Boolean     @default(false)
+  name           String
+  type           AccountType
+  openingBalance Decimal       @default(0) @map("balance") @db.Decimal(18, 2)
+  currency       String        @default("IDR")
+  color          String?
+  icon           String?
+  isArchived     Boolean       @default(false)
+  transactions   Transaction[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([workspaceId])
+}
+
+model Category {
+  id          String @id @default(uuid(7))
+  workspaceId String
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Restrict)
+
+  name         String
+  type         TransactionType
+  color        String?
+  icon         String?
+  isArchived   Boolean         @default(false)
+  transactions Transaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([workspaceId, name, type])
+  @@index([workspaceId])
+}
+
+model Transaction {
+  id         String @id @default(uuid(7))
+  accountId  String
+  categoryId String
+
+  account  Account  @relation(fields: [accountId], references: [id], onDelete: Restrict)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+  type        TransactionType
+  amount      Decimal         @db.Decimal(18, 2)
+  description String?
+  occurredAt  DateTime        @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([accountId, occurredAt])
+  @@index([categoryId])
 }
