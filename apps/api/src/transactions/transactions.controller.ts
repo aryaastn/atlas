@@ -1,7 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
+  ParseUUIDPipe,
+  Patch,
   Post,
   Req,
   UseGuards,
@@ -9,6 +13,7 @@ import {
 import type { Request } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { TransactionsService } from './transactions.service';
 
 interface AuthenticatedRequest extends Request {
@@ -40,6 +45,30 @@ export class TransactionsController {
     return this.transactionsService.create(
       request.user.userId,
       dto,
+    );
+  }
+
+  @Patch(':id')
+  updateTransaction(
+    @Req() request: AuthenticatedRequest,
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() dto: UpdateTransactionDto,
+  ) {
+    return this.transactionsService.update(
+      request.user.userId,
+      id,
+      dto,
+    );
+  }
+
+  @Delete(':id')
+  deleteTransaction(
+    @Req() request: AuthenticatedRequest,
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ) {
+    return this.transactionsService.remove(
+      request.user.userId,
+      id,
     );
   }
 }
